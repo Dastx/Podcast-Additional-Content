@@ -18,3 +18,18 @@
 | Gaming GPU                                       | NVIDIA GeForce RTX 5090             | ~174,000,000           | 575W                                     | N/A (mains powered)                           | [PCGamer Review](https://www.pcgamesn.com/nvidia/geforce-rtx-5090-guide)                                                                                                                                                                     |
 | Specialized ML GPU                               | NVIDIA H200 (141GB HBM3e)           | 989,000,000            | 700W                                     | N/A (mains powered)                           | [NVIDIA H200 Official Page](https://www.nvidia.com/en-us/data-center/h200/) (Note: Peak performance for BF16/FP16 operations)                                                                                                                |
 | Specialized ML TPU                               | Google TPU v5p                      | 459,000,000 (per chip) | ~1,200W (per board)                      | N/A (mains powered)                           | [Google Cloud TPU v5p Docs](https://cloud.google.com/tpu/docs/v5p) (Note: Performance of a single chip is listed; power consumption is for a board with 4 chips)                                                                             |
+
+
+### Comparative TFLOPS Requirements Across AI Task Domains
+
+| AI Task Category | Sub-Task Example | Output Unit | Total FLOPs/Unit (Work) | Sustained TFLOPS (Rate) | Precision/Context | Primary Constraint |
+| ---------------- | ---------------- | ----------- | ----------------------- | ----------------------- | ----------------- | ------------------ |
+| LLM Training | Llama 3 70B (Total) | 1 Trillion Tokens | ∼5.0×10²⁶ FLOPs | PetaFLOPS (Cluster) | BF16 (50% Util.) | Cluster Interconnect |
+| LLM Inference | Llama 3 70B (Serving) | Per Token | ∼500 GFLOPs | 7−15 TFLOPS (Effective) | FP8/BF16 | Memory Bandwidth/KV Cache |
+| Image Generation | SDXL 1.0 (50 Steps) | Per 1024x1024 image | 1.0−4.0 PetaFLOPs | 150−300 TFLOPS (Sustained) | FP16/BF16 | Iterative steps/Latency |
+| Video Diffusion | 1 Frame (Extrapolated) | Per Frame (50 Steps) | 1.5−5.0 PetaFLOPs | 400−800 TFLOPS | BF16/Optimization | High Latency/Throughput |
+| Image Detection | YOLOv10n Inference | Per 640x640 image | 8.3 GFLOPs | <0.1 TFLOPS (Per Stream) | INT8/FP16 | Edge Efficiency/Latency |
+| ASR Inference | Whisper Large V3 | Per Hour of Audio | N/A (Throughput focus) | 1−5 TFLOPS (Batch Processing) | BF16/FP16 | Memory Bandwidth/Throughput |
+| TTS Inference | Lightweight VITS | Per Second of Speech | 20−100 GFLOPs | <0.5 TFLOPS | FP16/Optimization | Real-time Latency |
+| Video Rendering | Ray Tracing (Pro Grade) | Per Frame | Highly Variable | 10−50 TFLOPS (Sustained) | FP32/RT Cores | Scene Complexity/Quality |
+| Robot Movement | Generative Reasoning | Real-time Loop | 10−100 TFLOPS (for VLM) | 100−2070 TFLOPS (Peak) | FP4/INT8 | Power/Thermal Constraints |
